@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="mdc-typography">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Greeting App</title>
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  </head>
+  <style>
+      .demo-body {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      .demo-main {
+        padding-left: 16px;
+        overflow: auto;
+      }
+    </style>
+  <body class="mdc-typography demo-body">
+	 <div id="app"></div>
+  </body>
+	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script>window.mdc.autoInit();</script>
+	 <script>
+      var drawerEl = document.querySelector('.mdc-temporary-drawer');
+      var MDCTemporaryDrawer = mdc.drawer.MDCTemporaryDrawer;
+      var drawer = new MDCTemporaryDrawer(drawerEl);
+      document.querySelector('.demo-menu').addEventListener('click', function() {
+        drawer.open = true;
+      });
+      drawerEl.addEventListener('MDCTemporaryDrawer:open', function() {
+        console.log('Received MDCTemporaryDrawer:open');
+      });
+      drawerEl.addEventListener('MDCTemporaryDrawer:close', function() {
+        console.log('Received MDCTemporaryDrawer:close');
+      });
+
+      // Demonstrate application of --activated modifier to drawer menu items
+      var activatedClass = 'mdc-list-item--activated';
+      document.querySelector('.mdc-temporary-drawer__drawer').addEventListener('click', function(event) {
+        var el = event.target;
+        while (!el.classList.contains('mdc-list-item') && el) {
+          el = el.parentNode;
+        }
+        if (el) {
+          var activatedItem = document.querySelector('.' + activatedClass);
+          if (activatedItem) {
+            activatedItem.classList.remove(activatedClass);
+          }
+          event.target.classList.add(activatedClass);
+        }
+      });
+    </script>
+</html>
